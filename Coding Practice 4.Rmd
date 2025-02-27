@@ -88,7 +88,7 @@ kable(head(mtcars, n = 5), digits = 3, format = "markdown")
 
 ## File Tree 
 not sure why but only got this 
-```r
+```
 .
 ├── Coding Challenge3PC_KKB.R
 ├── Coding Practice 4.Rmd
@@ -108,7 +108,10 @@ not sure why but only got this
 └── README.md
 ```
 
+## DOI release for Zenodo
 
+DOI: 10.5281/zenodo.14940583
 
+- [DOI](https://zenodo.org/records/14940583)
 
 
