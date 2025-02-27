@@ -2,20 +2,18 @@
 title: "Coding Practice 4"
 author: "Prativa Chhetri"
 date: "2025-02-26"
-output: 
-  pdf_document:
+output:
+  pdf_document: null
   html_document:
-   toc: true
-   toc_float: true
-   word_document:
+    toc: true
+    toc_float: true
+    word_document: null
   md_document:
-   variant: gfm
+    variant: gfm
+  word_document:
+    toc: true
 ---
 
-```{r Install Tinytex, eval=FALSE}
-install.packages('tinytex')
-tinytex::install_tinytex()
-```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -113,5 +111,8 @@ not sure why but only got this
 DOI: 10.5281/zenodo.14940583
 
 - [DOI](https://zenodo.org/records/14940583)
+
+- [GitHub](https://github.com/PrativaC/Mycotoxin)
+
 
 
