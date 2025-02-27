@@ -3,13 +3,15 @@ title: "Coding Practice 4"
 author: "Prativa Chhetri"
 date: "2025-02-26"
 output: 
-html_document:
-  toc: true
-  toc_float: true
-  word_document:
-    pdf_document:
-      
+  html_document:
+   toc: true
+   toc_float: true
+   word_document:
+  pdf_document:
+  md_document:
+   variant: gfm
 ---
+
 ```{r Install Tinytex, eval=FALSE}
 install.packages('tinytex')
 tinytex::install_tinytex()
@@ -22,6 +24,8 @@ library(ggplot2)
 library(markdown)
 
 ```
+
+
 
 ```{r}
 data("mtcars")
