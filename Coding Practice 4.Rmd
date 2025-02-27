@@ -83,8 +83,9 @@ kable(head(mtcars, n = 5), digits = 3, format = "markdown")
 - [Coding Pratice 4](Coding Practice 4.Rmd)
 
 ## File Tree
-'''
+```
 .
 └── TinyTeX-1.zip
+```
 
-'''
+
