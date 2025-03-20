@@ -139,3 +139,15 @@ figure
 ```
 
 ![](CodingChallenge4_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+# Q(5)
+
+*ALso available in GitHub Mycotoxin Repository*
+
+- [README](README.md)
+
+# Q(6)
+
+*Link TO GitHub respository along with README*
+
+- [GitHub Link](https://github.com/PrativaC/Mycotoxin)
