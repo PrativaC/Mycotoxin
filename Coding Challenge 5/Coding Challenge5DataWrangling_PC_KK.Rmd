@@ -1,0 +1,96 @@
+---
+title: 'Coding Challenge: Data Wragling'
+author: "Prativa Chhetri and Karamjit Kaur Baryah"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    toc: true
+  html_document:
+    toc: true
+    toc_float: true
+  md_document:
+    variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+# Question 1.
+
+```{r}
+metadata <- read.csv("Metadata.csv", na.strings = "na")
+diversity <- read.csv("DiversityData.csv")
+str(metadata)
+str(diversity)
+```
+
+# Question 2.
+
+```{r}
+alpha <- left_join(diversity, metadata, by = "Code")
+head(alpha)
+```
+
+# Question 3
+
+```{r}
+alpha_even <- alpha %>%
+  mutate(even = shannon / log(richness))
+head(alpha_even)
+```
+
+# Question 4
+
+```{r}
+alpha_average <- alpha_even %>%
+  group_by(Crop, Time_Point) %>% 
+  summarise(
+    mean.even = mean(even, na.rm = TRUE),
+    n = n(), 
+    sd.even = sd(even, na.rm = TRUE) 
+  ) %>%
+  mutate(std.err.even = sd.even / sqrt(n))
+head(alpha_average)
+```
+
+
+# Question 5.
+
+```{r}
+alpha_average2 <- alpha_average %>%
+  select(Time_Point, Crop, mean.even) %>%
+  pivot_wider(names_from = Crop, values_from = mean.even) %>% 
+  mutate(
+    diff.cotton.even = Soil - Cotton, 
+    diff.soybean.even = Soil - Soybean
+  )
+str(alpha_average2)
+```
+
+
+# Question 6.
+
+
+
+```{r}
+alpha_average2 %>%
+  select(Time_Point, diff.cotton.even, diff.soybean.even) %>%
+  pivot_longer(c(diff.cotton.even, diff.soybean.even), names_to = "diff") %>%
+  ggplot(aes(x = Time_Point, y = value, color = diff)) +
+  geom_line(size = 1) + 
+  theme_classic() +
+  labs(
+    x = "Time (hrs)",
+    y = "Difference from soil in Pielou’s evenness",
+    color = "diff"
+  )
+
+```
+
+
+# Question 7.
+
+ [GitHub for Coding Challenge 5](https://github.com/PrativaC/Mycotoxin)
