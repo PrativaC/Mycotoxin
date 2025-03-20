@@ -144,3 +144,7 @@ alpha_average2 %>%
     ## generated.
 
 ![](Coding-Challenge5DataWrangling_PC_KK_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+# Question 7.
+
+- [GitHub for Coding Challenge 5](https://github.com/PrativaC/Mycotoxin)

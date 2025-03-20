@@ -91,3 +91,5 @@ alpha_average2 %>%
 ```
 
 
+# Question 7.
+- [GitHub for Coding Challenge 5](https://github.com/PrativaC/Mycotoxin)
