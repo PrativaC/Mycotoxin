@@ -1,14 +1,14 @@
 # Question 1
 
-· reducing the chance of errors from manual repetition.
+- reducing the chance of errors from manual repetition.
 
-· Custom functions make your code more organized and reusable.
+- Custom functions make your code more organized and reusable.
 
-· If a built-in function changes in future versions of R or a package
-update alters behavior, your custom function ensures stability
+- If a built-in function changes in future versions of R or a package
+  update alters behavior, your custom function ensures stability
 
-· Writing your own functions allows you to tailor calculations, data
-transformations, or iterations to specific requirements.
+- Writing your own functions allows you to tailor calculations, data
+  transformations, or iterations to specific requirements.
 
 # Question 2
 
@@ -30,14 +30,14 @@ return(result) \# Return output
 
 How it Works:
 
-· Define the function with function().
+- Define the function with function().
 
-· Inside {}, write the code to process inputs.
+- Inside {}, write the code to process inputs.
 
-· Use return() to output a value (if omitted, R returns the last
-evaluated expression).
+- Use return() to output a value (if omitted, R returns the last
+  evaluated expression).
 
-· Call the function like this:
+- Call the function like this:
 
 $$my_function(3, 5) # should return to 8$$
 
@@ -54,11 +54,11 @@ print(i) \# Prints numbers 1 to 5
 
 How it Works:
 
-· for (i in sequence): Iterates over each value in sequence.
+- for (i in sequence): Iterates over each value in sequence.
 
-· Inside {}, write the code that executes on each iteration.
+- Inside {}, write the code that executes on each iteration.
 
-· The loop stops when all values in sequence are processed.
+- The loop stops when all values in sequence are processed.
 
 \$\$squares = c()
 
