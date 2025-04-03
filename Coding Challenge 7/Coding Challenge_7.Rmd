@@ -1,0 +1,121 @@
+---
+title: 'Coding Challenge: Linear model'
+author: "Prativa Chhetri and Karamjit Kaur Baryah"
+date: "`r Sys.Date()`"
+output:
+  word_document:
+    toc: true
+  html_document:
+    toc: true
+    toc_float: true
+  md_document:
+    variant: gfm
+  pdf_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lme4)
+library(emmeans)
+library(multcomp)
+```
+
+
+# Question 1
+
+```{r}
+STAND <- read.csv("PlantEmergence.csv")
+STAND$Treatment <- as.factor(STAND$Treatment)
+STAND$DaysAfterPlanting <- as.factor(STAND$DaysAfterPlanting)
+STAND$Rep <- as.factor(STAND$Rep)
+str(STAND)
+```
+
+
+# Question 2
+
+```{r}
+lm.full <- lm(Emergence ~ Treatment * DaysAfterPlanting, data = STAND)
+summary(lm.full) 
+anova(lm.full)
+```
+ 
+
+# Question 3
+
+**Since the p-value for interaction term from ANOVA is greater than 0.05, indicating it not being significant so we don't need to fit the interaction term** 
+
+```{r}
+lm.simple <- lm(Emergence ~ Treatment + DaysAfterPlanting, data = STAND)
+summary(lm.simple)
+anova(lm.simple)
+```
+
+**From the summary table, intercept is the mean emergence for baseline levels.: 182.163 and coefficient for treatment 2 is the difference in mean emergence between Treatment 2 and intercept (-134.531): 134.531 less emergence than reference level**
+
+
+
+# Question 4
+
+```{r}
+lsmeans_trt <- emmeans(lm.simple, ~ Treatment)
+Results_lsmeans <- cld(lsmeans_trt, alpha = 0.05, reversed = TRUE, Letters = letters)
+Results_lsmeans
+```
+
+
+** Means followed by Same letter are not significantly different. Treatments 5, 3, and 6 had the highest emergence and were not significantly different from each other. Treatment 2 had the lowest emergence and was significantly lower than all other treatments. Treatments in group "ab" (including 8, 4, 9, and 1) had intermediate values and were not significantly different from either the highest or the next-lower group. Treatment 7 was significantly lower than the top group but not different from treatments in the "ab" group.**
+
+
+# Question 5
+
+```{r}
+# Provided code
+plot_cldbars_onefactor <- function(lm_model, factor) {
+  data <- lm_model$model
+  variables <- colnames(lm_model$model)
+  dependent_var <- variables[1]
+  independent_var <- variables[2:length(variables)]
+
+  lsmeans <- emmeans(lm_model, as.formula(paste("~", factor)))
+  Results_lsmeans <- cld(lsmeans, alpha = 0.05, reversed = TRUE, details = TRUE, Letters = letters)
+
+  sig.diff.letters <- data.frame(Results_lsmeans$emmeans[,1], 
+                                 str_trim(Results_lsmeans$emmeans[,7]))
+  colnames(sig.diff.letters) <- c(factor, "Letters")
+
+  ave_stand2 <- lm_model$model %>%
+    group_by(!!sym(factor)) %>%
+    summarize(
+      ave.emerge = mean(.data[[dependent_var]], na.rm = TRUE),
+      se = sd(.data[[dependent_var]]) / sqrt(n())
+    ) %>%
+    left_join(sig.diff.letters, by = factor) %>%
+    mutate(letter_position = ave.emerge + 10 * se)
+
+  plot <- ggplot(data, aes(x = !! sym(factor), y = !! sym(dependent_var))) + 
+    stat_summary(fun = mean, geom = "bar") +
+    stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.5) +
+    ylab("Number of emerged plants") + 
+    geom_jitter(width = 0.02, alpha = 0.5) +
+    geom_text(data = ave_stand2, aes(label = Letters, y = letter_position), size = 5) +
+    xlab(as.character(factor)) +
+    theme_classic()
+
+  return(plot)
+}
+
+# Plot using the simplified model and Treatment
+plot_cldbars_onefactor(lm.simple, "Treatment")
+
+```
+
+**The letters above the bars represent statistically distinct groups. Treatments sharing a letter are not significantly different, while those with different letters show significant differences in emergence.**
+
+
+# Question 6
+
+-[GitHub Link](https://github.com/PrativaC/Mycotoxin)
+
