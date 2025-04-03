@@ -117,5 +117,5 @@ plot_cldbars_onefactor(lm.simple, "Treatment")
 
 # Question 6
 
--[GitHub Link](https://github.com/PrativaC/Mycotoxin)
+- [GitHub Link](https://github.com/PrativaC/Mycotoxin)
 
